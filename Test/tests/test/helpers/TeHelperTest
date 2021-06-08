@@ -1,0 +1,40 @@
+<?php
+
+namespace Tests\Unit;
+
+use Carbon\Carbon;
+use PHPUnit\Framework\TestCase;
+
+class TeHelperTest extends TestCase
+{
+    protected $teHelper;
+
+    public function test_will_expire_at_less_than_ninety()
+    {
+        $created_at = Carbon::now();
+        $due_time = $created_at->addHours(16);
+
+        //must assert equality of result and $due_time
+        $this->assertTrue(teHelper.willExpireAt($due_time, $created_at), $due_time->format('Y-m-d H:i:s'));
+    }
+
+    public function test_will_expire_at_greater_than_ninety()
+    {
+        $created_at = Carbon::now();
+        $due_time = $created_at->addHours(91);
+
+        //must assert equality of (result- 48 hours) and $due_time
+        $this->assertEquals(teHelper.willExpireAt($due_time, $created_at), $due_time=>subHours(48)->format('Y-m-d H:i:s'));
+    }
+
+    public function test_will_expire_at_ninety()
+    {
+        $created_at = Carbon::now();
+        $due_time = $created_at->addHours(90);
+
+         //must assert equality of result and $due_time
+        $this->assertTrue(teHelper.willExpireAt($due_time, $created_at), $due_time->format('Y-m-d H:i:s'));
+    }
+
+
+}
